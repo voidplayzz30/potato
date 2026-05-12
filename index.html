@@ -154,6 +154,29 @@
             <ul class="bucket-list" id="thingsList"></ul>
         </div>
 
+        <!-- MISS DIARY -->
+        <p class="section-title">Miss Diary 📝</p>
+        <p class="section-sub">Write your heart out baby</p>
+        <div class="diary-card">
+            <textarea id="diaryInput" placeholder="What's on your mind today..." rows="4"></textarea>
+            
+            <div class="diary-toggle-row">
+                <label class="diary-toggle">
+                    <input type="checkbox" id="diaryShared">
+                    <span class="toggle-slider"></span>
+                    <span class="toggle-label" id="toggleLabel">🔒 Private</span>
+                </label>
+            </div>
+            
+            <button class="diary-save-btn" onclick="saveDiaryEntry()">Save Entry 💕</button>
+        </div>
+
+        <!-- DIARY ENTRIES LIST -->
+        <div class="diary-entries-card">
+            <p class="diary-entries-title">📖 Past Entries</p>
+            <ul class="diary-list" id="diaryList"></ul>
+        </div>
+
         <!-- GALLERY FOLDERS -->
         <p class="section-title">Our Gallery 📸</p>
         <p class="section-sub">Tap a folder to see the pics inside</p>
@@ -162,7 +185,7 @@
                 <div class="folder-cover">
                     <img src="mischief.gif" alt="Mischievous Potato">
                 </div>
-                <p class="folder-name">Mischievous Potato 🥔</p>
+                <p class="folder-name">Mischievous Potato 😈🥔</p>
                 <p class="folder-count">9 pics</p>
             </div>
 
@@ -170,7 +193,7 @@
                 <div class="folder-cover">
                     <img src="pretty.gif" alt="Pretty Potato">
                 </div>
-                <p class="folder-name">Pretty Potatoo 💕</p>
+                <p class="folder-name">Pretty Potato 🥺💕</p>
                 <p class="folder-count">10 pics</p>
             </div>
         </div>
@@ -201,6 +224,15 @@
         <h2>Our Star ⭐</h2>
         <p id="starMsg">This was the night my whole world changed. Out of billions of stars in the sky and billions of people on this earth I found you. My nirvuu. My potato. My whole universe started right here on this night. Every star you see here was shining just for us that night. I would relive Oct 19 a thousand times just to fall in love with you all over again. 🥔❤️</p>
         <button onclick="closeStarMsg()">Close 💕</button>
+    </div>
+
+    <!-- DIARY VIEW POPUP -->
+    <div class="overlay" id="diaryOverlay" onclick="closeDiaryEntry()"></div>
+    <div class="popup" id="diaryPopup">
+        <h2 id="diaryEntryDate"></h2>
+        <p class="diary-entry-mode" id="diaryEntryMode"></p>
+        <p id="diaryEntryText" style="white-space: pre-wrap;"></p>
+        <button onclick="closeDiaryEntry()">Close 💕</button>
     </div>
 
     <!-- FOLDER SLIDESHOW POPUP -->
