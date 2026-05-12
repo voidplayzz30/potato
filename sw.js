@@ -1,4 +1,4 @@
-const CACHE_NAME = "potato-v3";
+const CACHE_NAME = "potato-v5";
 const urlsToCache = [
     "./",
     "./index.html",
