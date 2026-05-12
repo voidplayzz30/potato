@@ -871,6 +871,134 @@ function closeStarMsg() {
     document.getElementById("starPopup").style.display = "none";
 }
 
+// ===== GALLERY FOLDERS =====
+const folders = {
+    mischief: {
+        title: "Mischievous Potato 😈🥔",
+        photos: [
+            "mischief1.jpg",
+            "mischief2.jpg",
+            "mischief3.jpg",
+            "mischief4.jpg",
+            "mischief5.jpg",
+            "mischief6.jpg",
+            "mischief7.jpg",
+            "mischief8.jpg",
+            "mischief9.jpg"
+        ]
+    },
+    pretty: {
+        title: "Pretty Potato 🥺💕",
+        photos: [
+            "pretty1.jpg",
+            "pretty2.jpg",
+            "pretty3.jpg",
+            "pretty4.jpg",
+            "pretty5.jpg",
+            "pretty6.jpg",
+            "pretty7.jpg",
+            "pretty8.jpg",
+            "pretty9.jpg",
+            "pretty10.jpg"
+        ]
+    }
+};
+
+let currentFolder = null;
+let currentSlideIndex = 0;
+let touchStartX = 0;
+let touchEndX = 0;
+
+function openFolder(folderKey) {
+    currentFolder = folders[folderKey];
+    currentSlideIndex = 0;
+
+    document.getElementById("folderPopupTitle").textContent = currentFolder.title;
+    document.getElementById("folderPopup").classList.add("active");
+
+    renderDots();
+    showSlide(0);
+
+    const wrapper = document.getElementById("slideWrapper");
+    wrapper.addEventListener("touchstart", handleTouchStart, { passive: true });
+    wrapper.addEventListener("touchend", handleTouchEnd, { passive: true });
+}
+
+function closeFolder() {
+    document.getElementById("folderPopup").classList.remove("active");
+    currentFolder = null;
+}
+
+function showSlide(index) {
+    if (!currentFolder) return;
+
+    const total = currentFolder.photos.length;
+    if (index < 0) index = total - 1;
+    if (index >= total) index = 0;
+
+    currentSlideIndex = index;
+
+    const img = document.getElementById("slideImg");
+    img.classList.add("fade");
+
+    setTimeout(() => {
+        img.src = currentFolder.photos[index];
+        img.classList.remove("fade");
+    }, 200);
+
+    document.getElementById("slideCounter").textContent = (index + 1) + " / " + total;
+
+    const dots = document.querySelectorAll(".slide-dot");
+    dots.forEach((dot, i) => {
+        dot.classList.toggle("active", i === index);
+    });
+}
+
+function changeSlide(direction) {
+    showSlide(currentSlideIndex + direction);
+}
+
+function renderDots() {
+    const dotsContainer = document.getElementById("slideDots");
+    dotsContainer.innerHTML = "";
+
+    currentFolder.photos.forEach((_, i) => {
+        const dot = document.createElement("div");
+        dot.className = "slide-dot" + (i === 0 ? " active" : "");
+        dot.onclick = () => showSlide(i);
+        dotsContainer.appendChild(dot);
+    });
+}
+
+function handleTouchStart(e) {
+    touchStartX = e.changedTouches[0].screenX;
+}
+
+function handleTouchEnd(e) {
+    touchEndX = e.changedTouches[0].screenX;
+    handleSwipe();
+}
+
+function handleSwipe() {
+    const swipeThreshold = 50;
+    const diff = touchStartX - touchEndX;
+
+    if (Math.abs(diff) > swipeThreshold) {
+        if (diff > 0) {
+            changeSlide(1);
+        } else {
+            changeSlide(-1);
+        }
+    }
+}
+
+document.addEventListener("keydown", function(e) {
+    if (!currentFolder) return;
+    if (e.key === "ArrowLeft") changeSlide(-1);
+    if (e.key === "ArrowRight") changeSlide(1);
+    if (e.key === "Escape") closeFolder();
+});
+
 // ===== REGISTER SERVICE WORKER (PWA) =====
 if ("serviceWorker" in navigator) {
     window.addEventListener("load", () => {
