@@ -154,20 +154,25 @@
             <ul class="bucket-list" id="thingsList"></ul>
         </div>
 
-        <!-- GALLERY -->
+        <!-- GALLERY FOLDERS -->
         <p class="section-title">Our Gallery 📸</p>
-        <p class="section-sub">Tap any photo to see it bigger</p>
-        <div class="gallery">
-            <div class="photo-box" onclick="openPhoto('pic1.jpg')"><img src="pic1.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic2.jpg')"><img src="pic2.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic3.jpg')"><img src="pic3.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic4.jpg')"><img src="pic4.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic5.jpg')"><img src="pic5.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic6.jpg')"><img src="pic6.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic7.jpg')"><img src="pic7.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic8.jpg')"><img src="pic8.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic9.jpg')"><img src="pic9.jpg" alt="memory"></div>
-            <div class="photo-box" onclick="openPhoto('pic10.jpg')"><img src="pic10.jpg" alt="memory"></div>
+        <p class="section-sub">Tap a folder to see the pics inside</p>
+        <div class="folder-grid">
+            <div class="folder-card" onclick="openFolder('mischief')">
+                <div class="folder-cover">
+                    <img src="mischief.gif" alt="Mischievous Potato">
+                </div>
+                <p class="folder-name">Mischievous Potato 😈🥔</p>
+                <p class="folder-count">9 pics</p>
+            </div>
+
+            <div class="folder-card" onclick="openFolder('pretty')">
+                <div class="folder-cover">
+                    <img src="pretty.gif" alt="Pretty Potato">
+                </div>
+                <p class="folder-name">Pretty Potato 🥺💕</p>
+                <p class="folder-count">10 pics</p>
+            </div>
         </div>
     </div>
 
@@ -198,7 +203,27 @@
         <button onclick="closeStarMsg()">Close 💕</button>
     </div>
 
-    <!-- PHOTO VIEWER -->
+    <!-- FOLDER SLIDESHOW POPUP -->
+    <div class="folder-popup" id="folderPopup">
+        <button class="folder-close" onclick="closeFolder()">✕</button>
+        <p class="folder-popup-title" id="folderPopupTitle"></p>
+        
+        <div class="slideshow-container" id="slideshowContainer">
+            <button class="slide-arrow slide-prev" onclick="changeSlide(-1)">◀</button>
+            
+            <div class="slide-wrapper" id="slideWrapper">
+                <img class="slide-img" id="slideImg" src="" alt="photo">
+            </div>
+            
+            <button class="slide-arrow slide-next" onclick="changeSlide(1)">▶</button>
+        </div>
+        
+        <p class="slide-counter" id="slideCounter">1 / 9</p>
+        
+        <div class="slide-dots" id="slideDots"></div>
+    </div>
+
+    <!-- PHOTO VIEWER (kept for backward compatibility) -->
     <div class="photo-overlay" id="photoOverlay" onclick="closePhoto()">
         <img id="bigPhoto" src="" alt="big photo">
     </div>
