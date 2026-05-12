@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Potato 🥔</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- FALLING HEARTS -->
+    <div class="falling-hearts" id="fallingHearts"></div>
+
+    <!-- ===== LOCK SCREEN ===== -->
+    <div class="lock-screen" id="lockScreen">
+        <div class="lock-content">
+            <div class="lock-icon">🔓</div>
+            <h1 class="lock-title">Decode Me</h1>
+            <p class="lock-sub">Unscramble this word to unlock 👀</p>
+
+            <div class="jumble-card">
+                <div class="jumbled-word">O T O P T A</div>
+                
+                <div class="input-area">
+                    <input type="text" id="guessInput" placeholder="Type your answer..." autocomplete="off">
+                    <button class="submit-btn" onclick="checkGuess()">Unlock 💕</button>
+                </div>
+
+                <p class="wrong-msg" id="wrongMsg"></p>
+                <p class="hint-msg" id="hintMsg"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== MAIN APP ===== -->
+    <div class="main-container" id="mainApp" style="display:none;">
+        <button class="music-btn" id="musicToggle" onclick="togglePause()">🎵</button>
+        <button class="theme-btn" id="themeToggle" onclick="cycleTheme()">🎨</button>
+        <div class="song-toast" id="songToast">Now Playing</div>
+        <div class="theme-toast" id="themeToast">Theme Changed</div>
+
+        <h1 class="title">🥔 Potato</h1>
+        <p class="subtitle">Our 7 Month Journey</p>
+
+        <!-- TIMER -->
+        <div class="timer-card">
+            <p class="timer-label">We have been together for</p>
+            <div class="timer-box">
+                <div class="time-unit"><span id="days">000</span><p>Days</p></div>
+                <div class="time-unit"><span id="hours">00</span><p>Hours</p></div>
+                <div class="time-unit"><span id="mins">00</span><p>Mins</p></div>
+                <div class="time-unit"><span id="secs">00</span><p>Secs</p></div>
+            </div>
+        </div>
+
+        <!-- TIMELINE -->
+        <p class="section-title">Our Journey 💕</p>
+        <p class="section-sub">Tap any heart to see the memory</p>
+        <p class="swipe-hint">← swipe to see all months →</p>
+
+        <div class="timeline-wrapper">
+            <div class="timeline-scroll">
+                <div class="stop"><p class="month-label">Oct 19, 2025</p><div class="heart-btn" onclick="showMemory(0)">❤️</div></div>
+                <div class="stop"><p class="month-label">Nov 19, 2025</p><div class="heart-btn" onclick="showMemory(1)">❤️</div></div>
+                <div class="stop"><p class="month-label">Dec 19, 2025</p><div class="heart-btn" onclick="showMemory(2)">❤️</div></div>
+                <div class="stop"><p class="month-label">Jan 19, 2026</p><div class="heart-btn" onclick="showMemory(3)">❤️</div></div>
+                <div class="stop"><p class="month-label">Feb 19, 2026</p><div class="heart-btn" onclick="showMemory(4)">❤️</div></div>
+                <div class="stop"><p class="month-label">Mar 19, 2026</p><div class="heart-btn" onclick="showMemory(5)">❤️</div></div>
+                <div class="stop"><p class="month-label">Apr 19, 2026</p><div class="heart-btn" onclick="showMemory(6)">❤️</div></div>
+                <div class="stop"><p class="month-label">May 19, 2026</p><div class="heart-btn" onclick="showMemory(7)">❤️</div></div>
+            </div>
+        </div>
+
+        <!-- SPIN THE WHEEL -->
+        <p class="section-title">Spin the Wheel 🎡</p>
+        <p class="section-sub">Tap the wheel for a fun challenge!</p>
+        <div class="wheel-card">
+            <div class="wheel-container">
+                <div class="wheel-pointer">▼</div>
+                <canvas id="wheelCanvas" width="300" height="300"></canvas>
+            </div>
+            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN 🎡</button>
+            <div class="wheel-result" id="wheelResult"></div>
+        </div>
+
+        <!-- COMPLIMENT GENERATOR -->
+        <p class="section-title">Compliment Generator ✨</p>
+        <p class="section-sub">Tap the button for a sweet surprise</p>
+        <div class="compliment-card">
+            <div class="compliment-display" id="complimentDisplay">
+                Tap the button baby 💕
+            </div>
+            <button class="compliment-btn" onclick="generateCompliment()">Tell me something sweet 🌸</button>
+        </div>
+
+        <!-- STAR MAP -->
+        <p class="section-title">Our Star Map ⭐</p>
+        <p class="section-sub">The night sky when we found each other</p>
+        <div class="starmap-card" id="starmapCard">
+            <canvas id="starCanvas" width="350" height="400"></canvas>
+            <div class="starmap-overlay">
+                <div class="starmap-moon">🌙</div>
+                <div class="starmap-center-star" onclick="showStarMessage()">⭐</div>
+                <p class="starmap-date">Oct 19, 2025</p>
+                <p class="starmap-label">The Night We Found Each Other</p>
+            </div>
+            <div class="shooting-star" id="shootingStar"></div>
+        </div>
+
+        <!-- MOOD SELECTOR -->
+        <p class="section-title">How are you feeling? 🌸</p>
+        <p class="section-sub">Tap your mood baby</p>
+        <div class="mood-grid">
+            <div class="mood-btn" onclick="showMood('happy')">😊<p>Happy</p></div>
+            <div class="mood-btn" onclick="showMood('sad')">🥺<p>Sad</p></div>
+            <div class="mood-btn" onclick="showMood('miss')">💔<p>Missing you</p></div>
+            <div class="mood-btn" onclick="showMood('angry')">😡<p>Angry</p></div>
+            <div class="mood-btn" onclick="showMood('love')">🥰<p>In love</p></div>
+            <div class="mood-btn" onclick="showMood('sleepy')">😴<p>Sleepy</p></div>
+            <div class="mood-btn" onclick="showMood('anxious')">😰<p>Anxious</p></div>
+            <div class="mood-btn" onclick="showMood('bored')">🥱<p>Bored</p></div>
+        </div>
+
+        <!-- BUCKET LIST - PLACES -->
+        <p class="section-title">Places we'll visit 🌍</p>
+        <p class="section-sub">Add places we'll go together</p>
+        <div class="bucket-card">
+            <div class="add-row">
+                <input type="text" id="placeInput" placeholder="Type a place...">
+                <button onclick="addPlace()">Add ✨</button>
+            </div>
+            <ul class="bucket-list" id="placesList"></ul>
+        </div>
+
+        <!-- BUCKET LIST - THINGS -->
+        <p class="section-title">Things we'll do 💕</p>
+        <p class="section-sub">Add things we'll do together</p>
+        <div class="bucket-card">
+            <div class="add-row">
+                <input type="text" id="thingInput" placeholder="Type a thing...">
+                <button onclick="addThing()">Add ✨</button>
+            </div>
+            <ul class="bucket-list" id="thingsList"></ul>
+        </div>
+
+        <!-- GALLERY -->
+        <p class="section-title">Our Gallery 📸</p>
+        <p class="section-sub">Tap any photo to see it bigger</p>
+        <div class="gallery">
+            <div class="photo-box" onclick="openPhoto('pic1.jpg')"><img src="pic1.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic2.jpg')"><img src="pic2.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic3.jpg')"><img src="pic3.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic4.jpg')"><img src="pic4.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic5.jpg')"><img src="pic5.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic6.jpg')"><img src="pic6.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic7.jpg')"><img src="pic7.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic8.jpg')"><img src="pic8.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic9.jpg')"><img src="pic9.jpg" alt="memory"></div>
+            <div class="photo-box" onclick="openPhoto('pic10.jpg')"><img src="pic10.jpg" alt="memory"></div>
+        </div>
+    </div>
+
+    <!-- MEMORY POPUP WITH PHOTO -->
+    <div class="overlay" id="memoryOverlay" onclick="closeMemory()"></div>
+    <div class="memory-popup-wrapper" id="memoryWrapper">
+        <img class="memory-photo" id="memoryPhoto" src="" alt="memory photo">
+        <div class="memory-popup-box">
+            <h2 id="popup-date"></h2>
+            <p id="popup-msg"></p>
+            <button onclick="closeMemory()">Close 💕</button>
+        </div>
+    </div>
+
+    <!-- MOOD POPUP -->
+    <div class="overlay" id="moodOverlay" onclick="closeMood()"></div>
+    <div class="popup" id="moodPopup">
+        <h2 id="mood-title"></h2>
+        <p id="mood-msg"></p>
+        <button onclick="closeMood()">Thank you 💕</button>
+    </div>
+
+    <!-- STAR MESSAGE POPUP -->
+    <div class="overlay" id="starOverlay" onclick="closeStarMsg()"></div>
+    <div class="popup" id="starPopup">
+        <h2>Our Star ⭐</h2>
+        <p id="starMsg">This was the night my whole world changed. Out of billions of stars in the sky and billions of people on this earth I found you. My nirvuu. My potato. My whole universe started right here on this night. Every star you see here was shining just for us that night. I would relive Oct 19 a thousand times just to fall in love with you all over again. 🥔❤️</p>
+        <button onclick="closeStarMsg()">Close 💕</button>
+    </div>
+
+    <!-- PHOTO VIEWER -->
+    <div class="photo-overlay" id="photoOverlay" onclick="closePhoto()">
+        <img id="bigPhoto" src="" alt="big photo">
+    </div>
+
+    <!-- MINI MUSIC PLAYER BAR -->
+    <div class="player-bar" id="playerBar">
+        <div class="player-progress-bg" onclick="seekSong(event)">
+            <div class="player-progress" id="playerProgress"></div>
+        </div>
+        <div class="player-content">
+            <div class="player-info">
+                <span class="player-song-name" id="playerSongName">No song playing</span>
+                <span class="player-time" id="playerTime">0:00 / 0:00</span>
+            </div>
+            <div class="player-controls">
+                <button class="player-ctrl-btn" onclick="prevSong()">⏮️</button>
+                <button class="player-ctrl-btn" id="playPauseBtn" onclick="togglePause()">▶️</button>
+                <button class="player-ctrl-btn" onclick="nextSong()">⏭️</button>
+                <button class="player-ctrl-btn" onclick="openSongList()">🎶</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SONG LIST POPUP -->
+    <div class="overlay" id="songListOverlay" onclick="closeSongList()"></div>
+    <div class="popup song-list-popup" id="songListPopup">
+        <h2>Pick a Song 🎵</h2>
+        <div class="song-list" id="songList"></div>
+        <button onclick="closeSongList()">Close 💕</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
