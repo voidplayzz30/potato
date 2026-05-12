@@ -482,32 +482,219 @@ body.theme-purple .add-row input {
     opacity: 0.7;
 }
 
-/* ===== GALLERY ===== */
-.gallery {
+/* ===== GALLERY FOLDERS ===== */
+.folder-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-bottom: 30px;
-    margin-top: 15px;
+    gap: 15px;
+    margin: 15px 0 30px 0;
 }
 
-.photo-box {
-    height: 180px;
-    background: rgba(255,255,255,0.4);
-    border-radius: 18px;
-    overflow: hidden;
+.folder-card {
+    background: var(--card-bg);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 12px;
+    text-align: center;
     cursor: pointer;
-    transition: transform 0.2s;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    transition: transform 0.2s, background 0.4s;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.15);
 }
 
-.photo-box:active { transform: scale(0.95); }
+.folder-card:active {
+    transform: scale(0.95);
+}
 
-.photo-box img {
+.folder-cover {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.3);
+    margin-bottom: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.folder-cover img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.folder-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text-on-card);
+    margin-bottom: 3px;
+}
+
+.folder-count {
+    font-size: 0.7rem;
+    color: var(--text-on-card);
+    opacity: 0.7;
+    font-weight: 500;
+}
+
+/* ===== FOLDER SLIDESHOW POPUP ===== */
+.folder-popup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.95);
+    z-index: 2000;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.folder-popup.active {
+    display: flex;
+}
+
+.folder-close {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.15);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.4rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    transition: transform 0.2s;
+}
+
+.folder-close:active {
+    transform: scale(0.9);
+}
+
+.folder-popup-title {
+    color: white;
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+}
+
+.slideshow-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.slide-wrapper {
+    flex: 1;
+    width: 100%;
+    height: 60vh;
+    border-radius: 20px;
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+    touch-action: pan-y;
+}
+
+.slide-img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    transition: opacity 0.3s ease;
+}
+
+.slide-img.fade {
+    opacity: 0;
+}
+
+.slide-arrow {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    color: white;
+    font-size: 1.2rem;
+    cursor: pointer;
+    backdrop-filter: blur(10px);
+    transition: all 0.2s;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-arrow:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+.slide-arrow:active {
+    transform: scale(0.9);
+}
+
+.slide-counter {
+    color: white;
+    font-size: 0.95rem;
+    font-weight: 600;
+    margin-top: 15px;
+    background: rgba(255, 255, 255, 0.15);
+    padding: 6px 18px;
+    border-radius: 50px;
+    backdrop-filter: blur(10px);
+}
+
+.slide-dots {
+    display: flex;
+    gap: 6px;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 90%;
+}
+
+.slide-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.slide-dot.active {
+    background: white;
+    width: 24px;
+    border-radius: 10px;
+}
+
+@media (max-width: 480px) {
+    .slide-wrapper {
+        height: 55vh;
+    }
+    
+    .slide-arrow {
+        width: 40px;
+        height: 40px;
+        font-size: 1rem;
+    }
+    
+    .folder-popup-title {
+        font-size: 1.5rem;
+    }
 }
 
 /* ===== POPUPS (General) ===== */
@@ -1048,7 +1235,6 @@ body.theme-purple .song-item.active {
     text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
 }
 
-/* Shooting Star */
 .shooting-star {
     position: absolute;
     width: 4px;
@@ -1085,7 +1271,6 @@ body.theme-dynamic {
     transition: background 2s ease, color 1s ease;
 }
 
-/* Morning 5am-11am */
 body.theme-dynamic.time-morning {
     background: linear-gradient(135deg, #ffecd2, #fcb69f, #ff9a9e);
     color: #5d3a1a;
@@ -1108,7 +1293,6 @@ body.theme-dynamic.time-morning {
     --btn-bg: #e65100;
 }
 
-/* Day 11am-5pm */
 body.theme-dynamic.time-day {
     background: linear-gradient(135deg, #a8edea, #89cff0, #74b9ff);
     color: #0c3547;
@@ -1131,7 +1315,6 @@ body.theme-dynamic.time-day {
     --btn-bg: #0288d1;
 }
 
-/* Evening 5pm-8pm */
 body.theme-dynamic.time-evening {
     background: linear-gradient(135deg, #a18cd1, #fbc2eb, #f6a085);
     color: #2d1b4e;
@@ -1154,7 +1337,6 @@ body.theme-dynamic.time-evening {
     --btn-bg: #7b1fa2;
 }
 
-/* Night 8pm-5am */
 body.theme-dynamic.time-night {
     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
     color: #d4c5f9;
