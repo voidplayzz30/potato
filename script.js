@@ -388,7 +388,6 @@ function updateDynamicTheme() {
     document.getElementById("themeToggle").textContent = icon;
 }
 
-// Update dynamic theme every minute
 setInterval(() => {
     if (document.body.classList.contains("theme-dynamic")) {
         updateDynamicTheme();
@@ -603,7 +602,6 @@ function drawWheel() {
         const startAngle = i * arc;
         const endAngle = startAngle + arc;
 
-        // Draw slice
         ctx.beginPath();
         ctx.moveTo(centerX, centerY);
         ctx.arc(centerX, centerY, radius, startAngle, endAngle);
@@ -611,12 +609,10 @@ function drawWheel() {
         ctx.fillStyle = wheelColors[i % wheelColors.length];
         ctx.fill();
 
-        // Draw border
         ctx.strokeStyle = "rgba(255,255,255,0.3)";
         ctx.lineWidth = 2;
         ctx.stroke();
 
-        // Draw text
         ctx.save();
         ctx.translate(centerX, centerY);
         ctx.rotate(startAngle + arc / 2);
@@ -628,7 +624,6 @@ function drawWheel() {
         ctx.restore();
     }
 
-    // Center circle
     ctx.beginPath();
     ctx.arc(centerX, centerY, 22, 0, 2 * Math.PI);
     ctx.fillStyle = "#fff";
@@ -669,7 +664,6 @@ function spinWheel() {
         const elapsed = Date.now() - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Ease out cubic
         const eased = 1 - Math.pow(1 - progress, 3);
         wheelRotation = startRotation + (targetRotation - startRotation) * eased;
 
@@ -681,7 +675,6 @@ function spinWheel() {
             isSpinning = false;
             btn.disabled = false;
 
-            // Calculate which item was selected
             const normalizedAngle = ((360 - (wheelRotation % 360)) + 90) % 360;
             const arc = 360 / totalItems;
             const selectedIndex = Math.floor(normalizedAngle / arc) % totalItems;
@@ -766,7 +759,6 @@ function initStarMap() {
     const width = canvas.width;
     const height = canvas.height;
 
-    // Generate random background stars
     for (let i = 0; i < 150; i++) {
         stars.push({
             x: Math.random() * width,
@@ -778,7 +770,6 @@ function initStarMap() {
         });
     }
 
-    // Generate heart shape stars
     const heartPoints = 40;
     const centerX = width / 2;
     const centerY = height / 2 - 10;
@@ -799,7 +790,6 @@ function initStarMap() {
         });
     }
 
-    // Add extra small stars inside the heart
     for (let i = 0; i < 15; i++) {
         const t = Math.random() * 2 * Math.PI;
         const innerScale = scale * (Math.random() * 0.6 + 0.2);
@@ -816,7 +806,6 @@ function initStarMap() {
         });
     }
 
-    // Connect heart stars with faint lines
     function drawLines() {
         ctx.strokeStyle = "rgba(255, 255, 255, 0.08)";
         ctx.lineWidth = 0.5;
@@ -834,7 +823,6 @@ function initStarMap() {
 
         const time = Date.now() / 1000;
 
-        // Draw background stars
         stars.forEach(star => {
             const twinkle = Math.sin(time * star.twinkleSpeed * 10 + star.twinkleOffset) * 0.4 + 0.6;
             ctx.beginPath();
@@ -843,15 +831,12 @@ function initStarMap() {
             ctx.fill();
         });
 
-        // Draw constellation lines
         drawLines();
 
-        // Draw heart stars
         heartStars.forEach(star => {
             const twinkle = Math.sin(time * star.twinkleSpeed * 10 + star.twinkleOffset) * 0.3 + 0.7;
             const glowRadius = star.radius * 3;
 
-            // Glow
             const gradient = ctx.createRadialGradient(star.x, star.y, 0, star.x, star.y, glowRadius);
             gradient.addColorStop(0, `rgba(255, 215, 0, ${star.alpha * twinkle * 0.4})`);
             gradient.addColorStop(1, "rgba(255, 215, 0, 0)");
@@ -860,7 +845,6 @@ function initStarMap() {
             ctx.fillStyle = gradient;
             ctx.fill();
 
-            // Star dot
             ctx.beginPath();
             ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
             ctx.fillStyle = `rgba(255, 255, 220, ${star.alpha * twinkle})`;
@@ -873,7 +857,6 @@ function initStarMap() {
     animate();
 }
 
-// Handle resize
 window.addEventListener("resize", function() {
     setTimeout(initStarMap, 200);
 });
@@ -886,4 +869,13 @@ function showStarMessage() {
 function closeStarMsg() {
     document.getElementById("starOverlay").style.display = "none";
     document.getElementById("starPopup").style.display = "none";
+}
+
+// ===== REGISTER SERVICE WORKER (PWA) =====
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .then(reg => console.log("SW registered ✅"))
+            .catch(err => console.log("SW failed ❌", err));
+    });
 }
