@@ -32,6 +32,7 @@ function checkGuess() {
             loadBucketLists();
             loadTheme();
             playMusic();
+            loadDiary();
             setTimeout(initStarMap, 500);
             setTimeout(drawWheel, 500);
         }, 1000);
@@ -998,6 +999,136 @@ document.addEventListener("keydown", function(e) {
     if (e.key === "ArrowRight") changeSlide(1);
     if (e.key === "Escape") closeFolder();
 });
+
+// ===== MISS DIARY =====
+function loadDiary() {
+    renderDiaryList();
+
+    const toggle = document.getElementById("diaryShared");
+    const label = document.getElementById("toggleLabel");
+
+    if (toggle && label) {
+        toggle.addEventListener("change", function() {
+            label.textContent = this.checked ? "💌 For Potato" : "🔒 Private";
+        });
+    }
+}
+
+function saveDiaryEntry() {
+    const input = document.getElementById("diaryInput");
+    const text = input.value.trim();
+    const isShared = document.getElementById("diaryShared").checked;
+
+    if (text === "") {
+        alert("Write something first baby 🥺");
+        return;
+    }
+
+    const now = new Date();
+    const dateStr = now.toLocaleDateString("en-US", { 
+        month: "short", 
+        day: "numeric", 
+        year: "numeric" 
+    });
+    const timeStr = now.toLocaleTimeString("en-US", { 
+        hour: "numeric", 
+        minute: "2-digit" 
+    });
+
+    const entry = {
+        date: dateStr,
+        time: timeStr,
+        text: text,
+        shared: isShared,
+        timestamp: now.getTime()
+    };
+
+    const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
+    entries.unshift(entry);
+    localStorage.setItem("diaryEntries", JSON.stringify(entries));
+
+    input.value = "";
+    document.getElementById("diaryShared").checked = false;
+    document.getElementById("toggleLabel").textContent = "🔒 Private";
+
+    renderDiaryList();
+    showDiarySaveToast();
+}
+
+function showDiarySaveToast() {
+    const toast = document.getElementById("themeToast");
+    toast.textContent = "Saved 💕";
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 1800);
+}
+
+function renderDiaryList() {
+    const list = document.getElementById("diaryList");
+    if (!list) return;
+
+    const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
+
+    list.innerHTML = "";
+
+    if (entries.length === 0) {
+        list.innerHTML = '<p class="diary-empty-msg">No entries yet. Pour your heart out baby 💕</p>';
+        return;
+    }
+
+    entries.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.className = "diary-entry-item";
+        
+        const badge = entry.shared 
+            ? '<span class="diary-entry-badge shared">💌 For Potato</span>'
+            : '<span class="diary-entry-badge private">🔒 Private</span>';
+
+        li.innerHTML = `
+            <div class="diary-entry-info" onclick="viewDiaryEntry(${index})">
+                <p class="diary-entry-date">${entry.date} • ${entry.time}</p>
+                <p class="diary-entry-preview">${escapeHtml(entry.text)}</p>
+                ${badge}
+            </div>
+            <button class="diary-delete-btn" onclick="deleteDiaryEntry(${index})">🗑️</button>
+        `;
+
+        list.appendChild(li);
+    });
+}
+
+function viewDiaryEntry(index) {
+    const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
+    const entry = entries[index];
+    if (!entry) return;
+
+    document.getElementById("diaryEntryDate").textContent = entry.date + " • " + entry.time;
+    document.getElementById("diaryEntryMode").textContent = entry.shared ? "💌 For Potato" : "🔒 Private";
+    document.getElementById("diaryEntryMode").style.color = entry.shared ? "var(--primary-accent)" : "var(--text-on-card)";
+    document.getElementById("diaryEntryText").textContent = entry.text;
+
+    document.getElementById("diaryOverlay").style.display = "block";
+    document.getElementById("diaryPopup").style.display = "block";
+}
+
+function closeDiaryEntry() {
+    document.getElementById("diaryOverlay").style.display = "none";
+    document.getElementById("diaryPopup").style.display = "none";
+}
+
+function deleteDiaryEntry(index) {
+    if (!confirm("Delete this entry? This can't be undone 🥺")) return;
+
+    const entries = JSON.parse(localStorage.getItem("diaryEntries") || "[]");
+    entries.splice(index, 1);
+    localStorage.setItem("diaryEntries", JSON.stringify(entries));
+    renderDiaryList();
+}
+
+function escapeHtml(text) {
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
 
 // ===== REGISTER SERVICE WORKER (PWA) =====
 if ("serviceWorker" in navigator) {
