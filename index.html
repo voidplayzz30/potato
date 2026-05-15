@@ -31,12 +31,10 @@
 
             <div class="jumble-card">
                 <div class="jumbled-word">O T O P T A</div>
-                
                 <div class="input-area">
                     <input type="text" id="guessInput" placeholder="Type your answer..." autocomplete="off">
                     <button class="submit-btn" onclick="checkGuess()">Unlock 💕</button>
                 </div>
-
                 <p class="wrong-msg" id="wrongMsg"></p>
                 <p class="hint-msg" id="hintMsg"></p>
             </div>
@@ -50,156 +48,289 @@
         <div class="song-toast" id="songToast">Now Playing</div>
         <div class="theme-toast" id="themeToast">Theme Changed</div>
 
-        <h1 class="title">🥔 Potato</h1>
-        <p class="subtitle">Our 7 Month Journey</p>
+        <!-- ============================================== -->
+        <!-- 🏠 HOME TAB -->
+        <!-- ============================================== -->
+        <div class="tab-content active" id="tab-home">
+            <h1 class="title">🥔 Potato</h1>
+            <p class="subtitle">Our Little World</p>
 
-        <!-- TIMER -->
-        <div class="timer-card">
-            <p class="timer-label">We have been together for</p>
-            <div class="timer-box">
-                <div class="time-unit"><span id="days">000</span><p>Days</p></div>
-                <div class="time-unit"><span id="hours">00</span><p>Hours</p></div>
-                <div class="time-unit"><span id="mins">00</span><p>Mins</p></div>
-                <div class="time-unit"><span id="secs">00</span><p>Secs</p></div>
-            </div>
-        </div>
-
-        <!-- TIMELINE -->
-        <p class="section-title">Our Journey 💕</p>
-        <p class="section-sub">Tap any heart to see the memory</p>
-        <p class="swipe-hint">← swipe to see all months →</p>
-
-        <div class="timeline-wrapper">
-            <div class="timeline-scroll">
-                <div class="stop"><p class="month-label">Oct 19, 2025</p><div class="heart-btn" onclick="showMemory(0)">❤️</div></div>
-                <div class="stop"><p class="month-label">Nov 19, 2025</p><div class="heart-btn" onclick="showMemory(1)">❤️</div></div>
-                <div class="stop"><p class="month-label">Dec 19, 2025</p><div class="heart-btn" onclick="showMemory(2)">❤️</div></div>
-                <div class="stop"><p class="month-label">Jan 19, 2026</p><div class="heart-btn" onclick="showMemory(3)">❤️</div></div>
-                <div class="stop"><p class="month-label">Feb 19, 2026</p><div class="heart-btn" onclick="showMemory(4)">❤️</div></div>
-                <div class="stop"><p class="month-label">Mar 19, 2026</p><div class="heart-btn" onclick="showMemory(5)">❤️</div></div>
-                <div class="stop"><p class="month-label">Apr 19, 2026</p><div class="heart-btn" onclick="showMemory(6)">❤️</div></div>
-                <div class="stop"><p class="month-label">May 19, 2026</p><div class="heart-btn" onclick="showMemory(7)">❤️</div></div>
-            </div>
-        </div>
-
-        <!-- SPIN THE WHEEL -->
-        <p class="section-title">Spin the Wheel 🎡</p>
-        <p class="section-sub">Tap the wheel for a fun challenge!</p>
-        <div class="wheel-card">
-            <div class="wheel-container">
-                <div class="wheel-pointer">▼</div>
-                <canvas id="wheelCanvas" width="300" height="300"></canvas>
-            </div>
-            <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN 🎡</button>
-            <div class="wheel-result" id="wheelResult"></div>
-        </div>
-
-        <!-- COMPLIMENT GENERATOR -->
-        <p class="section-title">Compliment Generator ✨</p>
-        <p class="section-sub">Tap the button for a sweet surprise</p>
-        <div class="compliment-card">
-            <div class="compliment-display" id="complimentDisplay">
-                Tap the button baby 💕
-            </div>
-            <button class="compliment-btn" onclick="generateCompliment()">Tell me something sweet 🌸</button>
-        </div>
-
-        <!-- STAR MAP -->
-        <p class="section-title">Our Star Map ⭐</p>
-        <p class="section-sub">The night sky when we found each other</p>
-        <div class="starmap-card" id="starmapCard">
-            <canvas id="starCanvas" width="350" height="400"></canvas>
-            <div class="starmap-overlay">
-                <div class="starmap-moon">🌙</div>
-                <div class="starmap-center-star" onclick="showStarMessage()">⭐</div>
-                <p class="starmap-date">Oct 19, 2025</p>
-                <p class="starmap-label">The Night We Found Each Other</p>
-            </div>
-            <div class="shooting-star" id="shootingStar"></div>
-        </div>
-
-        <!-- MOOD SELECTOR -->
-        <p class="section-title">How are you feeling? 🌸</p>
-        <p class="section-sub">Tap your mood baby</p>
-        <div class="mood-grid">
-            <div class="mood-btn" onclick="showMood('happy')">😊<p>Happy</p></div>
-            <div class="mood-btn" onclick="showMood('sad')">🥺<p>Sad</p></div>
-            <div class="mood-btn" onclick="showMood('miss')">💔<p>Missing you</p></div>
-            <div class="mood-btn" onclick="showMood('angry')">😡<p>Angry</p></div>
-            <div class="mood-btn" onclick="showMood('love')">🥰<p>In love</p></div>
-            <div class="mood-btn" onclick="showMood('sleepy')">😴<p>Sleepy</p></div>
-            <div class="mood-btn" onclick="showMood('anxious')">😰<p>Anxious</p></div>
-            <div class="mood-btn" onclick="showMood('bored')">🥱<p>Bored</p></div>
-        </div>
-
-        <!-- BUCKET LIST - PLACES -->
-        <p class="section-title">Places we'll visit 🌍</p>
-        <p class="section-sub">Add places we'll go together</p>
-        <div class="bucket-card">
-            <div class="add-row">
-                <input type="text" id="placeInput" placeholder="Type a place...">
-                <button onclick="addPlace()">Add ✨</button>
-            </div>
-            <ul class="bucket-list" id="placesList"></ul>
-        </div>
-
-        <!-- BUCKET LIST - THINGS -->
-        <p class="section-title">Things we'll do 💕</p>
-        <p class="section-sub">Add things we'll do together</p>
-        <div class="bucket-card">
-            <div class="add-row">
-                <input type="text" id="thingInput" placeholder="Type a thing...">
-                <button onclick="addThing()">Add ✨</button>
-            </div>
-            <ul class="bucket-list" id="thingsList"></ul>
-        </div>
-
-        <!-- MISS DIARY -->
-        <p class="section-title">Miss Diary 📝</p>
-        <p class="section-sub">Write your heart out baby</p>
-        <div class="diary-card">
-            <textarea id="diaryInput" placeholder="What's on your mind today..." rows="4"></textarea>
-            
-            <div class="diary-toggle-row">
-                <label class="diary-toggle">
-                    <input type="checkbox" id="diaryShared">
-                    <span class="toggle-slider"></span>
-                    <span class="toggle-label" id="toggleLabel">🔒 Private</span>
-                </label>
-            </div>
-            
-            <button class="diary-save-btn" onclick="saveDiaryEntry()">Save Entry 💕</button>
-        </div>
-
-        <!-- DIARY ENTRIES LIST -->
-        <div class="diary-entries-card">
-            <p class="diary-entries-title">📖 Past Entries</p>
-            <ul class="diary-list" id="diaryList"></ul>
-        </div>
-
-        <!-- GALLERY FOLDERS -->
-        <p class="section-title">Our Gallery 📸</p>
-        <p class="section-sub">Tap a folder to see the pics inside</p>
-        <div class="folder-grid">
-            <div class="folder-card" onclick="openFolder('mischief')">
-                <div class="folder-cover">
-                    <img src="mischief.gif" alt="Mischievous Potato">
+            <!-- TIMER -->
+            <div class="timer-card">
+                <p class="timer-label">We have been together for</p>
+                <div class="timer-box">
+                    <div class="time-unit"><span id="days">000</span><p>Days</p></div>
+                    <div class="time-unit"><span id="hours">00</span><p>Hours</p></div>
+                    <div class="time-unit"><span id="mins">00</span><p>Mins</p></div>
+                    <div class="time-unit"><span id="secs">00</span><p>Secs</p></div>
                 </div>
-                <p class="folder-name">Mischievous Potato 😈🥔</p>
-                <p class="folder-count">9 pics</p>
             </div>
 
-            <div class="folder-card" onclick="openFolder('pretty')">
-                <div class="folder-cover">
-                    <img src="pretty.gif" alt="Pretty Potato">
+            <!-- DAILY LOVE NOTE -->
+            <p class="section-title">Daily Love Note 💌</p>
+            <p class="section-sub">A fresh thought for you every day</p>
+            <div class="love-note-card">
+                <p class="love-note-date" id="loveNoteDate"></p>
+                <p class="love-note-text" id="loveNoteText"></p>
+            </div>
+
+            <!-- STAR MAP -->
+            <p class="section-title">Our Star Map ⭐</p>
+            <p class="section-sub">The night sky when we found each other</p>
+            <div class="starmap-card" id="starmapCard">
+                <canvas id="starCanvas" width="350" height="400"></canvas>
+                <div class="starmap-overlay">
+                    <div class="starmap-moon">🌙</div>
+                    <div class="starmap-center-star" onclick="showStarMessage()">⭐</div>
+                    <p class="starmap-date">Oct 19, 2025</p>
+                    <p class="starmap-label">The Night We Found Each Other</p>
                 </div>
-                <p class="folder-name">Pretty Potato 🥺💕</p>
-                <p class="folder-count">10 pics</p>
+                <div class="shooting-star" id="shootingStar"></div>
+            </div>
+
+            <!-- SPECIAL DATES COUNTDOWN -->
+            <p class="section-title">Counting Down 🎂</p>
+            <p class="section-sub">Our most special days</p>
+            <div class="dates-grid" id="datesGrid">
+                <!-- Filled by JS -->
             </div>
         </div>
+
+        <!-- ============================================== -->
+        <!-- 💕 US TAB -->
+        <!-- ============================================== -->
+        <div class="tab-content" id="tab-us">
+            <h1 class="title">Us 💕</h1>
+            <p class="subtitle">Our story so far</p>
+
+            <!-- TIMELINE -->
+            <p class="section-title">Our Journey 💕</p>
+            <p class="section-sub">Tap any heart to see the memory</p>
+            <p class="swipe-hint">← swipe to see all months →</p>
+
+            <div class="timeline-wrapper">
+                <div class="timeline-scroll">
+                    <div class="stop"><p class="month-label">Oct 19, 2025</p><div class="heart-btn" onclick="showMemory(0)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Nov 19, 2025</p><div class="heart-btn" onclick="showMemory(1)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Dec 19, 2025</p><div class="heart-btn" onclick="showMemory(2)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Jan 19, 2026</p><div class="heart-btn" onclick="showMemory(3)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Feb 19, 2026</p><div class="heart-btn" onclick="showMemory(4)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Mar 19, 2026</p><div class="heart-btn" onclick="showMemory(5)">❤️</div></div>
+                    <div class="stop"><p class="month-label">Apr 19, 2026</p><div class="heart-btn" onclick="showMemory(6)">❤️</div></div>
+                    <div class="stop"><p class="month-label">May 19, 2026</p><div class="heart-btn" onclick="showMemory(7)">❤️</div></div>
+                </div>
+            </div>
+
+            <!-- RELATIONSHIP STATS -->
+            <p class="section-title">Our Stats 📊</p>
+            <p class="section-sub">In numbers 🥹</p>
+            <div class="stats-grid" id="statsGrid">
+                <!-- Filled by JS -->
+            </div>
+
+            <!-- BUCKET LIST - PLACES -->
+            <p class="section-title">Places we'll visit 🌍</p>
+            <p class="section-sub">Add places we'll go together</p>
+            <div class="bucket-card">
+                <div class="add-row">
+                    <input type="text" id="placeInput" placeholder="Type a place...">
+                    <button onclick="addPlace()">Add ✨</button>
+                </div>
+                <ul class="bucket-list" id="placesList"></ul>
+            </div>
+
+            <!-- BUCKET LIST - THINGS -->
+            <p class="section-title">Things we'll do 💕</p>
+            <p class="section-sub">Add things we'll do together</p>
+            <div class="bucket-card">
+                <div class="add-row">
+                    <input type="text" id="thingInput" placeholder="Type a thing...">
+                    <button onclick="addThing()">Add ✨</button>
+                </div>
+                <ul class="bucket-list" id="thingsList"></ul>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- 🎮 FUN TAB -->
+        <!-- ============================================== -->
+        <div class="tab-content" id="tab-fun">
+            <h1 class="title">Fun 🎮</h1>
+            <p class="subtitle">Pick your vibe</p>
+
+            <!-- SPIN THE WHEEL -->
+            <p class="section-title">Spin the Wheel 🎡</p>
+            <p class="section-sub">Tap for a fun challenge!</p>
+            <div class="wheel-card">
+                <div class="wheel-container">
+                    <div class="wheel-pointer">▼</div>
+                    <canvas id="wheelCanvas" width="300" height="300"></canvas>
+                </div>
+                <button class="spin-btn" id="spinBtn" onclick="spinWheel()">SPIN 🎡</button>
+                <div class="wheel-result" id="wheelResult"></div>
+            </div>
+
+            <!-- COMPLIMENT GENERATOR -->
+            <p class="section-title">Compliment Generator ✨</p>
+            <p class="section-sub">Tap the button for a sweet surprise</p>
+            <div class="compliment-card">
+                <div class="compliment-display" id="complimentDisplay">
+                    Tap the button baby 💕
+                </div>
+                <button class="compliment-btn" onclick="generateCompliment()">Tell me something sweet 🌸</button>
+            </div>
+
+            <!-- MOOD SELECTOR -->
+            <p class="section-title">How are you feeling? 🌸</p>
+            <p class="section-sub">Tap your mood baby</p>
+            <div class="mood-grid">
+                <div class="mood-btn" onclick="showMood('happy')">😊<p>Happy</p></div>
+                <div class="mood-btn" onclick="showMood('sad')">🥺<p>Sad</p></div>
+                <div class="mood-btn" onclick="showMood('miss')">💔<p>Missing you</p></div>
+                <div class="mood-btn" onclick="showMood('angry')">😡<p>Angry</p></div>
+                <div class="mood-btn" onclick="showMood('love')">🥰<p>In love</p></div>
+                <div class="mood-btn" onclick="showMood('sleepy')">😴<p>Sleepy</p></div>
+                <div class="mood-btn" onclick="showMood('anxious')">😰<p>Anxious</p></div>
+                <div class="mood-btn" onclick="showMood('bored')">🥱<p>Bored</p></div>
+            </div>
+
+            <!-- MINI GAMES -->
+            <p class="section-title">Mini Games 🎯</p>
+            <p class="section-sub">Beat your high scores!</p>
+            <div class="games-grid">
+                <div class="game-card" onclick="startGame('tap')">
+                    <div class="game-icon">🥔</div>
+                    <p class="game-name">Tap the Potato</p>
+                    <p class="game-desc">Catch it before it hides!</p>
+                </div>
+                <div class="game-card" onclick="startGame('reaction')">
+                    <div class="game-icon">⚡</div>
+                    <p class="game-name">Reaction Test</p>
+                    <p class="game-desc">How fast are you?</p>
+                </div>
+                <div class="game-card" onclick="startGame('catch')">
+                    <div class="game-icon">🌹</div>
+                    <p class="game-name">Catch Hearts</p>
+                    <p class="game-desc">Avoid the bombs!</p>
+                </div>
+                <div class="game-card" onclick="startGame('memory')">
+                    <div class="game-icon">🎯</div>
+                    <p class="game-name">Memory Cards</p>
+                    <p class="game-desc">Match the pairs!</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- 📸 GALLERY TAB -->
+        <!-- ============================================== -->
+        <div class="tab-content" id="tab-gallery">
+            <h1 class="title">Gallery 📸</h1>
+            <p class="subtitle">Our moments captured</p>
+
+            <p class="section-title">Photo Folders 📁</p>
+            <p class="section-sub">Tap a folder to see the pics</p>
+            <div class="folder-grid">
+                <div class="folder-card" onclick="openFolder('mischief')">
+                    <div class="folder-cover">
+                        <img src="mischief.gif" alt="Mischievous Potato">
+                    </div>
+                    <p class="folder-name">Mischievous Potato 😈🥔</p>
+                    <p class="folder-count">9 pics</p>
+                </div>
+                <div class="folder-card" onclick="openFolder('pretty')">
+                    <div class="folder-cover">
+                        <img src="pretty.gif" alt="Pretty Potato">
+                    </div>
+                    <p class="folder-name">Pretty Potato 🥺💕</p>
+                    <p class="folder-count">10 pics</p>
+                </div>
+            </div>
+
+            <!-- SLIDESHOW MOVIE -->
+            <p class="section-title">Slideshow Movie 🎬</p>
+            <p class="section-sub">All our pics + music = magic</p>
+            <div class="slideshow-launcher" onclick="startSlideshowMovie()">
+                <div class="slideshow-launcher-icon">🎬</div>
+                <p class="slideshow-launcher-text">Play the Movie</p>
+                <p class="slideshow-launcher-sub">All photos with background music</p>
+            </div>
+        </div>
+
+        <!-- ============================================== -->
+        <!-- 📝 DIARY TAB -->
+        <!-- ============================================== -->
+        <div class="tab-content" id="tab-diary">
+            <h1 class="title">Diary 📝</h1>
+            <p class="subtitle">Your safe space</p>
+
+            <!-- MISS DIARY -->
+            <p class="section-title">Miss Diary 📝</p>
+            <p class="section-sub">Write your heart out baby</p>
+            <div class="diary-card">
+                <textarea id="diaryInput" placeholder="What's on your mind today..." rows="4"></textarea>
+                <div class="diary-toggle-row">
+                    <label class="diary-toggle">
+                        <input type="checkbox" id="diaryShared">
+                        <span class="toggle-slider"></span>
+                        <span class="toggle-label" id="toggleLabel">🔒 Private</span>
+                    </label>
+                </div>
+                <button class="diary-save-btn" onclick="saveDiaryEntry()">Save Entry 💕</button>
+            </div>
+
+            <div class="diary-entries-card">
+                <p class="diary-entries-title">📖 Past Entries</p>
+                <ul class="diary-list" id="diaryList"></ul>
+            </div>
+
+            <!-- WISH JAR -->
+            <p class="section-title">Wish Jar 🌟</p>
+            <p class="section-sub">Drop a wish. Open it when it comes true.</p>
+            <div class="wish-card">
+                <textarea id="wishInput" placeholder="Make a wish..." rows="3"></textarea>
+                <button class="wish-save-btn" onclick="addWish()">Drop in Jar 🌟</button>
+            </div>
+
+            <div class="wish-jar-card">
+                <p class="wish-jar-title">✨ Your Wishes</p>
+                <div class="wish-jar" id="wishJar"></div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- MEMORY POPUP WITH PHOTO -->
+    <!-- ============================================== -->
+    <!-- BOTTOM TAB BAR -->
+    <!-- ============================================== -->
+    <nav class="bottom-nav" id="bottomNav" style="display:none;">
+        <div class="nav-item active" data-tab="home" onclick="switchTab('home')">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">Home</span>
+        </div>
+        <div class="nav-item" data-tab="us" onclick="switchTab('us')">
+            <span class="nav-icon">💕</span>
+            <span class="nav-label">Us</span>
+        </div>
+        <div class="nav-item" data-tab="fun" onclick="switchTab('fun')">
+            <span class="nav-icon">🎮</span>
+            <span class="nav-label">Fun</span>
+        </div>
+        <div class="nav-item" data-tab="gallery" onclick="switchTab('gallery')">
+            <span class="nav-icon">📸</span>
+            <span class="nav-label">Gallery</span>
+        </div>
+        <div class="nav-item" data-tab="diary" onclick="switchTab('diary')">
+            <span class="nav-icon">📝</span>
+            <span class="nav-label">Diary</span>
+        </div>
+    </nav>
+
+    <!-- ============================================== -->
+    <!-- POPUPS -->
+    <!-- ============================================== -->
+
+    <!-- MEMORY POPUP -->
     <div class="overlay" id="memoryOverlay" onclick="closeMemory()"></div>
     <div class="memory-popup-wrapper" id="memoryWrapper">
         <img class="memory-photo" id="memoryPhoto" src="" alt="memory photo">
@@ -235,29 +366,94 @@
         <button onclick="closeDiaryEntry()">Close 💕</button>
     </div>
 
+    <!-- WISH VIEW POPUP -->
+    <div class="overlay" id="wishOverlay" onclick="closeWish()"></div>
+    <div class="popup" id="wishPopup">
+        <h2>Your Wish 🌟</h2>
+        <p class="wish-popup-date" id="wishPopupDate"></p>
+        <p id="wishPopupText" style="white-space: pre-wrap;"></p>
+        <div class="wish-popup-buttons">
+            <button onclick="markWishCameTrue()" id="wishTrueBtn">It came true ✨</button>
+            <button onclick="deleteWish()" class="delete-wish-btn">Delete 🗑️</button>
+            <button onclick="closeWish()">Close 💕</button>
+        </div>
+    </div>
+
     <!-- FOLDER SLIDESHOW POPUP -->
     <div class="folder-popup" id="folderPopup">
         <button class="folder-close" onclick="closeFolder()">✕</button>
         <p class="folder-popup-title" id="folderPopupTitle"></p>
-        
         <div class="slideshow-container" id="slideshowContainer">
             <button class="slide-arrow slide-prev" onclick="changeSlide(-1)">◀</button>
-            
             <div class="slide-wrapper" id="slideWrapper">
                 <img class="slide-img" id="slideImg" src="" alt="photo">
             </div>
-            
             <button class="slide-arrow slide-next" onclick="changeSlide(1)">▶</button>
         </div>
-        
         <p class="slide-counter" id="slideCounter">1 / 9</p>
-        
         <div class="slide-dots" id="slideDots"></div>
     </div>
 
-    <!-- PHOTO VIEWER (kept for backward compatibility) -->
-    <div class="photo-overlay" id="photoOverlay" onclick="closePhoto()">
-        <img id="bigPhoto" src="" alt="big photo">
+    <!-- SLIDESHOW MOVIE POPUP -->
+    <div class="movie-popup" id="moviePopup">
+        <button class="folder-close" onclick="stopSlideshowMovie()">✕</button>
+        <p class="folder-popup-title">🎬 Our Movie</p>
+        <div class="movie-image-container">
+            <img class="movie-img" id="movieImg" src="" alt="movie">
+        </div>
+        <p class="movie-counter" id="movieCounter">1 / 19</p>
+    </div>
+
+    <!-- ============================================== -->
+    <!-- GAME POPUPS -->
+    <!-- ============================================== -->
+
+    <!-- TAP THE POTATO GAME -->
+    <div class="game-popup" id="tapGamePopup">
+        <button class="folder-close" onclick="endGame('tap')">✕</button>
+        <p class="game-popup-title">🥔 Tap the Potato</p>
+        <p class="game-popup-info">Score: <span id="tapScore">0</span> | Time: <span id="tapTime">30</span>s</p>
+        <p class="game-popup-best">Best: <span id="tapBest">0</span></p>
+        <div class="tap-game-area" id="tapGameArea">
+            <div class="game-start-msg" id="tapStartMsg">
+                <p>Tap the potato as many times as you can!</p>
+                <button class="game-start-btn" onclick="beginTapGame()">Start 🥔</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- REACTION TEST GAME -->
+    <div class="game-popup" id="reactionGamePopup">
+        <button class="folder-close" onclick="endGame('reaction')">✕</button>
+        <p class="game-popup-title">⚡ Reaction Test</p>
+        <p class="game-popup-best">Best: <span id="reactionBest">— ms</span></p>
+        <div class="reaction-area" id="reactionArea" onclick="reactionClick()">
+            <p class="reaction-msg" id="reactionMsg">Tap to start ⚡</p>
+        </div>
+    </div>
+
+    <!-- CATCH HEARTS GAME -->
+    <div class="game-popup" id="catchGamePopup">
+        <button class="folder-close" onclick="endGame('catch')">✕</button>
+        <p class="game-popup-title">🌹 Catch Hearts</p>
+        <p class="game-popup-info">Score: <span id="catchScore">0</span> | Time: <span id="catchTime">30</span>s</p>
+        <p class="game-popup-best">Best: <span id="catchBest">0</span></p>
+        <div class="catch-game-area" id="catchGameArea">
+            <div class="game-start-msg" id="catchStartMsg">
+                <p>Catch hearts ❤️ Avoid bombs 💣</p>
+                <button class="game-start-btn" onclick="beginCatchGame()">Start 🌹</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MEMORY CARDS GAME -->
+    <div class="game-popup" id="memoryGamePopup">
+        <button class="folder-close" onclick="endGame('memory')">✕</button>
+        <p class="game-popup-title">🎯 Memory Cards</p>
+        <p class="game-popup-info">Tries: <span id="memoryTries">0</span></p>
+        <p class="game-popup-best">Best: <span id="memoryBest">— tries</span></p>
+        <div class="memory-grid" id="memoryGrid"></div>
+        <button class="game-start-btn" onclick="beginMemoryGame()" style="margin-top:15px;">New Game 🎯</button>
     </div>
 
     <!-- MINI MUSIC PLAYER BAR -->
